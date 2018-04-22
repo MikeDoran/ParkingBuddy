@@ -23,26 +23,6 @@ public class ParkingSpace{
         return identifier;
     }
     
-    public LocalDateTime getTimeToOpen(){
-        return timeToOpen;
-    }
-    
-    public boolean isObstructed(){
-        return isObstructed;
-    }
-    
-    public boolean isFilled(){
-        return isFilled;
-    }
-    
-    public boolean isTimerOn(){
-        return onTimer;
-    }
-    
-    public void setOnTimer(boolean onOff){
-        onTimer = onOff;
-    }
-    
     //OBSTRUCT: sets the space to obstructed
     public void obstruct(){
         isObstructed = true;
@@ -59,9 +39,9 @@ public class ParkingSpace{
     public void fillFor(long h, long m, long s){
         onTimer = true;
         LocalDateTime expiration = LocalDateTime.now();
-        expiration = expiration.plusHours(h);
-        expiration = expiration.plusMinutes(m);
-        expiration = expiration.plusSeconds(s);
+        expiration.plusHours(h);
+        expiration.plusMinutes(m);
+        expiration.plusSeconds(s);
         timeToOpen = expiration;
     }
     
@@ -76,11 +56,11 @@ public class ParkingSpace{
     //to see if the timeToOpen is before the current time. If it is, the space is
     //open and onTimer is set to false again
     public boolean isTaken(){
-        if(!onTimer)
-            return isObstructed || isFilled;
+        if(!onTimer) return isObstructed || isFilled;
         else if(timeToOpen.isBefore(LocalDateTime.now())){
             onTimer = false;
             return false;
-        }else return true;
+        }
+        else return true;
     }
 }
