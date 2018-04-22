@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Vector2;
  * @author Mike
  */
 public class Button {
-    private final Vector2 position;
+    private Vector2 position;
     private final Vector2 dimensions;
     private final Texture image;
     
@@ -42,6 +42,13 @@ public class Button {
         realPos -= (int)position.y;
         
         return realPos;
+    }
+    
+    public void setPos(Vector2 p){
+        position = p;
+    }
+    public Vector2 getPos(){
+        return position;
     }
     
     public int getWidth(){
