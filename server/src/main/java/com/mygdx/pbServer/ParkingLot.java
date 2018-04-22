@@ -6,7 +6,7 @@ import java.util.Set;
 public class ParkingLot {
     
     //A hashtable to hold all parking spaces
-    private final Hashtable<String,ParkingSpace> spaces = new Hashtable();
+    public final Hashtable<String,ParkingSpace> spaces = new Hashtable();
     
     public ParkingLot(String[] ids) {
         for(String id : ids){

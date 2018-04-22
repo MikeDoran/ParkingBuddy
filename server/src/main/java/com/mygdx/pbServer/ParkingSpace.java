@@ -1,8 +1,9 @@
 package com.mygdx.pbServer;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class ParkingSpace{
+public class ParkingSpace implements Serializable{
     
     private final String identifier;
     private Boolean isObstructed;
