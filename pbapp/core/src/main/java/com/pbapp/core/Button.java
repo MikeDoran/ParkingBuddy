@@ -1,4 +1,4 @@
-package com.pbapp.core;
+ package com.pbapp.core;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
@@ -29,6 +29,27 @@ public class Button {
         return withinY && withinX;
     }
     
+    public boolean wasTouchedTilted(int x, int y, float tilt){
+        if(tilt == 90f){
+            Boolean withinY = (y < position.y) && (y > (position.y-dimensions.y));
+            Boolean withinX = (x < position.x) && (x > (position.x-dimensions.y));
+            return withinY && withinX;
+        }else if (tilt == 0f) {
+            Boolean withinY = (y < position.y) && (y > (position.y-dimensions.y));
+            Boolean withinX = (x > position.x) && (x < (position.x+dimensions.x));
+            return withinY && withinX;
+        } else{
+            Boolean withinX = (x < position.x + 8) && (x > position.x - 8);
+            if(!withinX){
+                //System.out.println("not within x");
+                return false;
+            }
+            Boolean withinY = (y < position.y) && (y > position.y - 40);
+            return withinY;
+                
+        }
+    }
+    
     public Texture getTexture(){
         return image;
     }
@@ -50,5 +71,13 @@ public class Button {
     
     public int getHeight(){
         return (int)dimensions.y;
+    }
+    
+    public void setXpos(int x){
+        position.x = x;
+    }
+    
+    public void setYpos(int y){
+        position.y = y;
     }
 }

@@ -12,10 +12,17 @@ import java.util.Scanner;
 public class MultiThreadServer {
     public static void main(String args[]){
         
-        //TODO: load with actual identifiers
-        String [] spaces = {"a","b","c"};
-        ParkingLot shineman = new ParkingLot(spaces);
-        ParkingLot sheldon = new ParkingLot(spaces);
+        
+        String [] shinemanSpaces = new String[230];
+        for(int i = 0; i < 230; i++){
+            shinemanSpaces[i] = String.valueOf(i + 1);
+        }
+        String [] sheldonSpaces = new String[67];
+        for(int i = 1; i <= 67; i++){
+            sheldonSpaces[i-1] = String.valueOf(i);
+        }
+        ParkingLot shineman = new ParkingLot(shinemanSpaces);
+        ParkingLot sheldon = new ParkingLot(sheldonSpaces);
         
 	//Displays local server information
         int port;

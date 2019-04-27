@@ -1,41 +1,66 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.pbapp.core;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
-/**
- *
- * @author emmabrunell
- */
-public class ParkingSpace {
+public class ParkingSpace implements Serializable{
     
-    private boolean isFull;
-    private int amtTime;
+    private final String identifier;
+    public Boolean isObstructed;
+    public Boolean isFilled;
+    public Boolean onTimer;
+    private LocalDateTime timeToOpen;
     
-    enum Obstructed {
-        CONSTRUCTION, WEATHER, EMERGENCYVEHICLE, ILLEGALITY, OTHER
+    public ParkingSpace(String id){
+        identifier = id;
+        isObstructed = false;
+        isFilled = false;
+        onTimer = false;
+        timeToOpen = LocalDateTime.now();
     }
     
-    public ParkingSpace() {
-        isFull = false;
+    //GETID: gets the id of a parking space
+    public String getId(){
+        return identifier;
     }
     
-    public boolean getIsFull() {
-        return isFull;
+    //OBSTRUCT: sets the space to obstructed
+    public void obstruct(){
+        isObstructed = true;
     }
     
-    public int getTime() {
-        return amtTime;
+    //FILL: sets the space to full
+    public void fill(){
+        isFilled = true;
     }
     
-    public void enterSpace() {
-        isFull = true;
+    //FILLFOR: sets the space to 'on timer' then gets the current localdatetime
+    //and calculates the time the space should be open again, and stores it in
+    //'timeToOpen'
+    public void fillFor(long h, long m, long s){
+        onTimer = true;
+        LocalDateTime expiration = LocalDateTime.now();
+        expiration = expiration.plusHours(h);
+        expiration = expiration.plusMinutes(m);
+        expiration = expiration.plusSeconds(s);
+        timeToOpen = expiration;
     }
     
-    public void exitSpace() {
-        isFull = false;
+    //OPEN: sets the space to open
+    public void open(){
+        isObstructed = false;
+        isFilled = false;
+        onTimer = false;
     }
     
+    //ISTAKEN: checks if the space is open. If it is on the timer, it checks
+    //to see if the timeToOpen is before the current time. If it is, the space is
+    //open and onTimer is set to false again
+    public boolean isTaken(){
+        if(!onTimer) return isObstructed || isFilled;
+        else if(timeToOpen.isBefore(LocalDateTime.now())){
+            onTimer = false;
+            return false;
+        }
+        else return true;
+    }
 }

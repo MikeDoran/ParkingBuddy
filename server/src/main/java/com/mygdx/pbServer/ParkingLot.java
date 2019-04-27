@@ -6,10 +6,11 @@ import java.util.Set;
 public class ParkingLot {
     
     //A hashtable to hold all parking spaces
-    private final Hashtable<String,ParkingSpace> spaces = new Hashtable();
+    public final Hashtable<String,ParkingSpace> spaces = new Hashtable();
     
     public ParkingLot(String[] ids) {
         for(String id : ids){
+            //System.out.println("id: " + id + " added");
             spaces.put(id, new ParkingSpace(id));
         }
     }
@@ -25,7 +26,13 @@ public class ParkingLot {
     
     //OBSTRUCT: sets a space to obstructed
     public void obstruct(String id){
-        spaces.get(id).obstruct();
+        //System.out.println("In obstruct id: " + id);
+        if(spaces.get(id) != null){
+            spaces.get(id).obstruct();
+        }else{
+            System.out.println("spaces.get(" + id +") is null");
+        }
+        
     }
     
     //FILL: sets a space to full
@@ -40,7 +47,9 @@ public class ParkingLot {
     
     //OPEN: sets a space to open
     public void open(String id){
-        spaces.get(id).open();
+        if (spaces.get(id) != null) {
+            spaces.get(id).open();
+        }
     }
     
     //GETSPACE: returns a parkingspace object of a given id

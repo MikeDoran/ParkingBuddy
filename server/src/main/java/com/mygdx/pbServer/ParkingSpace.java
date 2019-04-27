@@ -1,8 +1,9 @@
 package com.mygdx.pbServer;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class ParkingSpace{
+public class ParkingSpace implements Serializable{
     
     private final String identifier;
     private Boolean isObstructed;
@@ -39,9 +40,9 @@ public class ParkingSpace{
     public void fillFor(long h, long m, long s){
         onTimer = true;
         LocalDateTime expiration = LocalDateTime.now();
-        expiration.plusHours(h);
-        expiration.plusMinutes(m);
-        expiration.plusSeconds(s);
+        expiration = expiration.plusHours(h);
+        expiration = expiration.plusMinutes(m);
+        expiration = expiration.plusSeconds(s);
         timeToOpen = expiration;
     }
     
@@ -62,5 +63,25 @@ public class ParkingSpace{
             return false;
         }
         else return true;
+    }
+
+    LocalDateTime getTimeToOpen() {
+        return timeToOpen; 
+    }
+
+    Object isFilled() {
+        return isFilled; 
+    }
+
+    Object isObstructed() {
+        return isObstructed; 
+    }
+
+    Object isTimerOn() {
+        return onTimer;
+    }
+
+    void setOnTimer(boolean b) {
+        onTimer = b;
     }
 }
